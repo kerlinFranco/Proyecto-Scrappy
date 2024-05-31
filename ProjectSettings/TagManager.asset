@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Tramp
+  - Enemy
+  - Boss
+  - Floating_Enemy
+  - Ground
+  - Life
+  - Coin
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Plataforms
+  - Personaje
+  - Enemy
+  - Consumibles
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 2425651459
+    locked: 0
+  - name: ground
+    uniqueID: 4250941897
+    locked: 0
+  - name: decorative
+    uniqueID: 4189426099
+    locked: 0
+  - name: Personajes
+    uniqueID: 1177728107
+    locked: 0
