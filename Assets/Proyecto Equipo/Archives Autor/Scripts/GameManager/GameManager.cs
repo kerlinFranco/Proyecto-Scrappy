@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void SumarPuntos(int puntosaSumar){
+        Debug.Log("sumo los puntos");
         puntosTotales+=puntosaSumar;
         HUD.Instance.ActualizarPuntos(puntosTotales);
     }

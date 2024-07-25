@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrojadizo : MonoBehaviour{
+    /*
+ 
     private Rigidbody2D rgb2;
     private Transform player;
     public float speed;
@@ -33,6 +35,7 @@ public class Arrojadizo : MonoBehaviour{
     IEnumerator DestroyProyectile(){
         yield return new WaitForSeconds(destroytime);
         Destroy(gameObject);
+    
     }
     /*void OnCollisionEnter2D(Collision2D other){
         if (other.gameObject.CompareTag("Player")){
