@@ -9,11 +9,21 @@ public class Arrojadizo : MonoBehaviour{
     private Transform player;
     public float speed;
     public float destroytime = 4f;
+    private bool hasLanded = false;// para rastrear si la piedra ha aterrizado.
     //[SerializeField] float damage = 1f;
     void Start(){
         Resize();
         rgb2 = GetComponent<Rigidbody2D>();
         gameObject.AddComponent<BoxCollider2D>();
+        //intento de arreglar el rebote de la roca
+        BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
+        PhysicsMaterial2D noBounceMaterial = new PhysicsMaterial2D
+        {
+            friction = 0.4f, // Ajusta según sea necesario
+            bounciness = 0f
+        };
+        collider.sharedMaterial = noBounceMaterial;
+
         player = FindAnyObjectByType<Player_Ardilla>().transform;
         LaunchProyectile();
         rgb2.bodyType = RigidbodyType2D.Dynamic;
@@ -38,6 +48,20 @@ public class Arrojadizo : MonoBehaviour{
         Destroy(gameObject);
     
     }
+    //inico de función para que no se mueva las piedras cuando toque el piso u otra piedra
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!hasLanded)
+        {
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Arrojadizo"))
+            {
+                rgb2.bodyType = RigidbodyType2D.Static;
+                hasLanded = true;
+            }
+        }
+    }
+    //fin 
+
     /*void OnCollisionEnter2D(Collision2D other){
         if (other.gameObject.CompareTag("Player")){
             Vector2 contactNormal = other.GetContact(0).normal;
