@@ -25,7 +25,9 @@ public class Player_Ardilla : PlantillaPersonaje{
     private Animator playeranimator;
     public Transform controladorSuelo;
     public Vector3 dimensionCaja;
+    public float raycastDistance = 0.2f;
     public bool ensuelo;
+    private bool estabaEnSuelo;//borrar desp
     [SerializeField] Image imagenVida;
     protected override void Start(){
         base.Start();
@@ -36,6 +38,7 @@ public class Player_Ardilla : PlantillaPersonaje{
         circlecolision.enabled = false;
         rgb2d.gravityScale = (float) Gravedad.NORMAL;
         Damage = (float) Daño.NORMAL;
+        estabaEnSuelo = false;//borrar desp
     }
     protected override void Update(){
         CheckSuelo();
@@ -45,17 +48,42 @@ public class Player_Ardilla : PlantillaPersonaje{
         }
     }
     void CheckSuelo(){
+        
+        
         ensuelo = Physics2D.OverlapBox(controladorSuelo.position,dimensionCaja,0f,groundmask);
-       
-        if (ensuelo){
+        // inicio de prueba
+        if (ensuelo && !estabaEnSuelo)
+        {
             boxcolision.enabled = true;
             circlecolision.enabled = false;
-            rgb2d.gravityScale = (float) Gravedad.NORMAL;
-            Damage = (float) Daño.NORMAL;
-        }else{
+            rgb2d.gravityScale = (float)Gravedad.NORMAL;
+            Damage = (float)Daño.NORMAL;
+            saltosRestantes = maxSaltos;
+            playeranimator.SetBool("Jump", false);  // Establecer la animación de salto en false cuando está en el suelo
+        }
+        else if (!ensuelo && estabaEnSuelo)
+        {
             circlecolision.enabled = true;
             boxcolision.enabled = false;
+            playeranimator.SetBool("Jump", true);  // Establecer la animación de salto en true cuando no está en el suelo
         }
+
+        estabaEnSuelo = ensuelo; // fin de prueba
+        /*
+         if (ensuelo){
+             boxcolision.enabled = true;
+             circlecolision.enabled = false;
+             rgb2d.gravityScale = (float) Gravedad.NORMAL;
+             Damage = (float) Daño.NORMAL;
+             saltosRestantes = maxSaltos;
+             playeranimator.SetBool("Jump", false); //posible solución del salt
+         }
+         else{
+             circlecolision.enabled = true;
+             boxcolision.enabled = false;
+
+         }
+         */
     }
     public override void Take_damage(float damage, Vector2 puntoGolpe){
         playeranimator.SetTrigger("Hit");
@@ -130,7 +158,8 @@ public class Player_Ardilla : PlantillaPersonaje{
 if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && saltosRestantes > 0){
 saltosRestantes--;
 rgb2d.velocity = new Vector2(rgb2d.velocity.x,0f);
-rgb2d.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);  
+rgb2d.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+playeranimator.SetBool("Jump", true);//intento de arreglar salto
 }
 if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !ensuelo){
 rgb2d.gravityScale = (float) Gravedad.DESCENSO;

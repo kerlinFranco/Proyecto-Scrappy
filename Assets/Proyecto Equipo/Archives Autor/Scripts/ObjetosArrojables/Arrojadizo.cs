@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrojadizo : MonoBehaviour{
-    /*
+    
  
     private Rigidbody2D rgb2;
     private Transform player;
     public float speed;
     public float destroytime = 4f;
-    [SerializeField] float damage = 1f;
+    //[SerializeField] float damage = 1f;
     void Start(){
         Resize();
         rgb2 = GetComponent<Rigidbody2D>();
         gameObject.AddComponent<BoxCollider2D>();
         player = FindAnyObjectByType<Player_Ardilla>().transform;
         LaunchProyectile();
+        rgb2.bodyType = RigidbodyType2D.Dynamic;
     }
     private void LaunchProyectile(){
         Vector2 directionPlayer = (player.position - transform.position).normalized;
@@ -23,9 +24,9 @@ public class Arrojadizo : MonoBehaviour{
         //StartCoroutine(DestroyProyectile());
     }
     private void Resize(){
-        float scaleX = CrearNumRandom();
+        float scaleX = 2f;//CrearNumRandom();
         Debug.Log("scaleX"+ scaleX);
-        float scaleY = CrearNumRandom();
+        float scaleY = 2f;//CrearNumRandom();
         Debug.Log("scaleY"+ scaleY);
         transform.localScale = new Vector2(scaleX,scaleY);
     }
